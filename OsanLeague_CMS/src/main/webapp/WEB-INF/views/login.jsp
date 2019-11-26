@@ -42,6 +42,10 @@
 
 </head>
 <body>
+<form id="mainform" name="mainform" method="post" action=""> 
+<input type="hidden" id="menu_odr" name="menu_odr"/>
+<input type="hidden" id="menu_val" name="menu_val"/>
+</form>
 	<div id="wrap">
 		<!-- 컨테이너 -->
 		<h1 class="logo"><a href="" class="fs_0">오산시민리그</a></h1>
@@ -54,21 +58,28 @@
 	<script type="text/javascript">
 		$("#login_check").on("click",function(){	
 			
-			$.ajax({
+			$.ajax({	
 				data:{"id" : $('#id').val(), "password" : $('#password').val()},
 				type:"POST",
 				url:"login_check.ajax",
 			    dataType :"text",
 			    success : function(result){
 			    	if(result != "0") {
+						var menu_url = "";
 						alert("로그인되었습니다.");
-						if(result=="1") {
-							location.href="./manager_list.do";
-						} else if(result=="2") {
-							location.href="./member_list.do";
+						if(result == "1") {
+							$('#menu_odr').val("1");
+							$('#menu_val').val("manager_list");
+						} else if(result == "2") {
+							$('#menu_odr').val("2");
+							$('#menu_val').val("member_list");
 						} else {
-							location.href="./league_list.do";
+							$('#menu_odr').val("3");
+							$('#menu_val').val("league_list");
 						}
+						menu_url = $('#menu_val').val()+".do";
+						document.mainform.action = menu_url;
+						document.mainform.submit();
 					} else {
 						alert("아이디, 패스워드를 확인해주세요");
 					}

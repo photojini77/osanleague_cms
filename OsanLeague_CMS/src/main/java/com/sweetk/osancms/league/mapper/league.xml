@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.sweetk.osancms.league.mapper.LeagueMapper">
+	
+	<select id="league_list" resultType="LeagueVo" parameterType="LeagueVo">
+		SELECT 
+			league_seq,
+		    league_name,
+		    yyyy,
+		    cntn,
+		    start_dt,
+		    end_dt,
+		    receipt_str_dt,
+		    receipt_end_dt,
+		    upd_dt,
+		    manager_id
+		FROM 
+			ol_citizen_league
+	</select>
+
+	<select id="league_info" resultType="LeagueVo" parameterType="String">
+		SELECT 
+			league_seq,
+		    league_name,
+		    yyyy,
+		    cntn,
+		    start_dt,
+		    end_dt,
+		    receipt_str_dt,
+		    receipt_end_dt,
+		    upd_dt,
+		    manager_id
+		FROM 
+			ol_citizen_league
+		WHERE
+			league_seq = #{0}
+	</select>
+
+	<select id="league_manage_team" resultType="LeagueVo" parameterType="String">
+		select 
+			bs2.*
+		from (
+			SELECT
+				@rownum:=@rownum+1  as row_num,
+				bs.*
+			FROM (
+				SELECT 
+					b.league_seq,
+					b.sports_seq,
+					a.league_sports_seq,
+					a.team_seq,
+				    a.team_name,
+				    c.league_name,
+					c.yyyy, 
+					c.cntn,
+				    d.athletic_sports_name,
+					d.athletic_sports_info,
+					m.name as reader_name,
+					m.phone as reader_phone,
+					(select count(*) from ol_team_member tm where a.team_seq = tm.team_seq) as team_member_cnt
+				FROM 
+					ol_team a 
+						join ol_league_sports b on a.league_sports_seq = b.league_sports_seq
+						join ol_citizen_league c on b.league_seq = c.league_seq
+						join ol_athletic_sports d on b.sports_seq = d.sports_seq
+						left join ol_member m on a.reader_id = m.id
+				WHERE
+					b.league_seq = #{0} and b.sports_seq = #{1}
+				order by a.team_seq
+				) bs , (select @rownum:=0) tmp
+			) bs2
+		order by row_num desc      
+		<!-- limit #{startRow}, #{endRow} -->
+	</select>
+</mapper>

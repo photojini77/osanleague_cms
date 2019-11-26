@@ -49,67 +49,76 @@ ArrayList<CommonVo> list = (ArrayList) session.getAttribute("SportsList");
 <!-- 컨테이너 -->
 		<section class="container">
 			<div class="container_inner">
-				<div class="content league_view">
+				<div class="content league_add">
 					<!-- 컨테이너 탑 -->
 					<header class="container_top">
 						<h2 class="cont_tit">시민리그 보기</h2>
-						<!-- 시민리그 종목 메뉴 
+						<!-- 시민리그 종목 메뉴 -->
 						<div class="league_select_wrap">
 							<div class="league_select">
 								<div class="league_sct_tit">종목선택</div>
-								<ul>
-									<%-- <% 
-									for(int i=0;i<list.size(); i++) {
-										String sNm = list.get(i).getSport_name();
-										int sNo = list.get(i).getSports_seq();
-									%> --%>
-									<%-- <c:set value="<%=sNo%>" var="s_no" /> --%>
-									<c:choose>
-										<c:when test="${auth ne '01' and auth ne '02'}" >
-											<c:if test="${auth eq s_no}">
-												<%-- <li><a href="javascript:;" data-val="${s_no}"><%=sNm%></a></li> --%>
-											</c:if>
-										</c:when>
-										<c:otherwise>
-											<%-- <li><a href="javascript:;" data-val="${s_no}"><%=sNm%></a></li> --%>
-										</c:otherwise>
-									</c:choose>
-									<%-- <%
-									}
-									%> --%>
-								</ul>
-							</div>
-						</div>
-						-->
-						<div class="container_top_right clearFix">
-							<!-- 생성 -->
-							<div class="league_add_btn fl_l">
-								<button type="button" onclick="location.href='league_add.html'">리그 만들기</button>
+								<c:if test="${auth eq '01' or auth eq '02'}" >
+									<ul>
+										<% 
+										for(int i=0;i<list.size(); i++) {
+											String sNm = list.get(i).getSport_name();
+											int sNo = list.get(i).getSports_seq();
+										%>
+										<c:set value="<%=sNo%>" var="s_no" />
+										<li><a href="javascript:;" class="league_sport" data-val="${s_no}"><%=sNm%></a></li>
+										<%
+										}
+										%>
+									</ul>
+								</c:if>
 							</div>
 						</div>
 					</header>
 					<!-- 시민 리그 리스트 -->
-					<ul class="league_list_wrap">
-						<!-- box -->
-						<c:forEach items="${list}" var="c" varStatus="status">
-								<li class="league_list" data-val="${c.league_seq}" style="cursor:pointer">
-									<div class="league_list_inner">
-										<p class="league_list_tit type1"></p>
-										<p class="league_list_stit ellipsis">${c.league_name}</p>
-										<p class="league_list_stit ecntn">${fn:substring(c.cntn,0,78)}<c:if test="${fn:length(c.cntn) gt 78}"> ...</c:if> </p>
-										<ul class="league_term">
-											<li>
-												<span>경기</span>${c.start_dt }~${c.end_dt } 
-											</li>
-											<li>
-												<span>접수</span>${c.receipt_str_dt}~${c.receipt_end_dt}
-											</li>
-										</ul>
-									</div>
-								</li>
-						</c:forEach>
-						
-					</ul>
+					<form class="input_area">
+						<fieldset>
+							<legend class="fs_00">시민리그 만들기</legend>
+							<div class="row row01">
+								<label>리그명</label>
+								<div class="input_wrap">${info.league_name}</div>
+							</div>
+							<div class="row row02">
+								<label>리그일정</label>
+								<div class="input_wrap col01">
+									${info.start_dt }
+								</div>
+								<div class="input_wrap col02">
+									${info.end_dt }
+								</div>
+							</div>
+							<div class="row row03">
+								<label>신청일정</label>
+								<div class="input_wrap col01">
+									${info.receipt_str_dt }
+								</div>
+								<div class="input_wrap col02">
+									${info.receipt_end_dt }
+								</div>
+							</div>
+							<div class="row row04">
+								<label>리그 설명</label>
+								<div class="txtarea_wrap">
+									${info.cntn }
+								</div>
+							</div>
+							<div class="row row05">
+								<label>이미지</label>
+								<div class="imgUpload">
+									<input class="imgUpload_name" value="" disabled="disabled">
+									<label for="imgUpload_file">찾아보기</label> 
+								  	<input type="file" id="imgUpload_file" class="imgUpload_hidden">
+								</div>
+							</div>
+							<div class="row row06 clearFix">
+								<button type="button" onclick="'" class="btn_ok">수정</button>
+							</div>
+						</fieldset>
+					</form>
 				</div>
 			</div>
 		</section>
@@ -118,24 +127,19 @@ ArrayList<CommonVo> list = (ArrayList) session.getAttribute("SportsList");
 	<form id="mainform" name="mainform" method="post" action=""> 
 		<input type="hidden" id="menu_odr" name="menu_odr"/>
 		<input type="hidden" id="menu_val" name="menu_val"/>
-		<input type="hidden" id="league_seq" name="league_seq"/>
+		<input type="hidden" id="league_seq" name="league_seq" value="${l_seq}"/>
+		<input type="hidden" id="sport_seq" name="sport_seq"/>
 	</form>
 	<script type="text/javascript">
-	$(".league_list").on("click",function(){
+	$(".league_sport").on("click",function(){
 		
 		var seq = $(this).attr("data-val"); // 버스 번호
-    	$('#league_seq').val(seq);
-		var ath = <%=session.getAttribute("UserAuth") %>;
-		var url = "league_manage_team.do";
-    	
+    	$('#sport_seq').val(seq);
+		
 		mainform.menu_odr.value = "3";
 		mainform.menu_val.value = "league_list";
     	
-    	if(ath == "01" || ath == "02") {
-    		url = "league_info.do";
-    	}
-    	
-    	document.mainform.action = url;
+    	document.mainform.action = "league_manage_team.do";
 		document.mainform.submit();
 	});
 
