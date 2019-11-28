@@ -26,6 +26,10 @@ public class LeagueVo {
     String league_sports_seq		= null;
     String team_seq					= null;
     String team_name				= null;
+    String grade					= null;
+    String name						= null;
+    String phone					= null;
+    String reg_dt					= null;
     
 	public int getStartRow() {
 		return startRow;
@@ -147,6 +151,30 @@ public class LeagueVo {
 	}
 	public void setTeam_name(String team_name) {
 		this.team_name = team_name;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getReg_dt() {
+		return reg_dt;
+	}
+	public void setReg_dt(String reg_dt) {
+		this.reg_dt = reg_dt;
 	}
 		
 }

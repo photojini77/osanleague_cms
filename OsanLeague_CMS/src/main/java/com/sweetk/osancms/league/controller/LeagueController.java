@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sweetk.osancms.league.mapper.LeagueMapper;
@@ -99,4 +101,40 @@ public class LeagueController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "/sport_manage_change.ajax", method = {RequestMethod.POST, RequestMethod.GET})
+    protected ModelAndView sport_manage_change(LeagueVo lvo, HttpServletRequest req, HttpServletResponse resp, HttpSession session
+    		,@RequestParam(value="league_seq",required=false) String lSeq
+    		,@RequestParam(value="sport_seq",required=false) String sSeq
+    		,@RequestParam(value="seq",required=false) String seq
+    	) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView("league/league_manage_team_ajax");
+	
+    	LeagueMapper mapper = sqlSession.getMapper(LeagueMapper.class);
+    	ArrayList<LeagueVo> list = null;
+    	
+    	try {
+    		
+    		if("1".equals(seq)) {
+    			list = mapper.league_manage_team(lSeq, sSeq);
+    		} else if("2".equals(seq)) {
+    			mav = new ModelAndView("league/league_manage_member");
+    			list = mapper.league_manage_member(lSeq, sSeq);
+    		
+    		} else if("3".equals(seq)) {
+    			mav = new ModelAndView("league/league_manage_match");
+    		} else if("4".equals(seq)) {
+    			mav = new ModelAndView("league/league_manage_game");
+    		}
+    		
+    		mav.addObject("list", list);
+    		
+    	} catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	
+    	return mav;
+	}
+	
 }

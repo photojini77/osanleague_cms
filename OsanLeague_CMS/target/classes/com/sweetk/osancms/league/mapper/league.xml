@@ -75,4 +75,45 @@
 		order by row_num desc      
 		<!-- limit #{startRow}, #{endRow} -->
 	</select>
+
+	<select id="league_manage_member" resultType="LeagueVo" parameterType="String">
+		select 
+			bs2.*
+		from (
+			SELECT
+				@rownum:=@rownum+1  as row_num,
+				bs.*
+			FROM (
+				SELECT 
+					b.league_seq,
+					b.sports_seq,
+					a.league_sports_seq,
+					c.league_name,
+					c.yyyy, 
+					c.cntn,
+				    d.athletic_sports_name,
+					d.athletic_sports_info,
+					m.name as name,
+					m.phone as phone,
+					t.team_seq,
+				    t.team_name,
+				    tm.grade,
+				    date_format(a.reg_dt, '%Y.%m.%d')  as reg_dt
+				FROM 
+					ol_member_league a 
+						join ol_league_sports b on a.league_sports_seq = b.league_sports_seq
+						join ol_citizen_league c on b.league_seq = c.league_seq
+						join ol_athletic_sports d on b.sports_seq = d.sports_seq
+						left join ol_member m on a.id = m.id
+						left join ol_team_member tm on tm.id = a.id and a.league_sports_seq = tm.league_sports_seq
+						left join ol_team t on t.team_seq = tm.team_seq  and t.league_sports_seq = tm.league_sports_seq
+				WHERE
+					b.league_seq = #{0} and b.sports_seq = #{1}
+				order by a.reg_dt
+				) bs , (select @rownum:=0) tmp
+			) bs2
+		order by row_num desc      
+		<!-- limit #{startRow}, #{endRow} -->
+	</select>
+	
 </mapper>

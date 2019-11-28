@@ -56,6 +56,12 @@
 	</div>
 	
 	<script type="text/javascript">
+		$("#password").keypress(function(e){
+			if (e.keyCode == 13){
+				$('#login_check').click();
+		    }   
+		});
+	
 		$("#login_check").on("click",function(){	
 			
 			$.ajax({	

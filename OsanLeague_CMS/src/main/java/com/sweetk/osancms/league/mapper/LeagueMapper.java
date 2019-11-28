@@ -12,4 +12,6 @@ public interface LeagueMapper {
 
 	public ArrayList<LeagueVo> league_manage_team(String league_seq, String sports_seq);
 
+	public ArrayList<LeagueVo> league_manage_member(String league_seq, String sports_seq);
+
 }
