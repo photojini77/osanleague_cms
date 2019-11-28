@@ -34,55 +34,50 @@
 		<!-- 컨테이너 -->
 		<section class="container">
 			<div class="container_inner">
-				<div class="content notice">
+				<div class="content operator_list">
 					<!-- 컨테이너 탑 -->
 					<header class="container_top">
-						<h2 class="cont_tit">공지사항</h2>
+						<h2 class="cont_tit">운영자 리스트</h2>
 						<div class="container_top_right clearFix">
-							<!-- 분류 -->
-							<div class="select fl_l">
-								<label class="fs_00">검색 분류 입니다.</label>
-								<select>
-									<option selected="">전체</option>
-									<option>필독</option>
-								</select>
-							</div>
 							<!-- 검색 -->
 							<div class="search fl_l">
-								<label>내용&#47;키워드 입력</label>
+								<label>ID&#47;이름 입력</label>
 								<input type="text" name="" class="label_hide">
 								<button type="button">검색</button>
 							</div>
 							<!-- 생성 -->
-							<div class="register fl_l">
-								<button type="button" onclick="location.href='notice_add.html'">등록</button>
+							<div class="operator_add fl_l">
+								<button type="button" class="btn_pop">운영자 생성</button>
 							</div>
 						</div>
 					</header>
-					<!-- 공지사항 테이블 -->
+					<!-- 운영자 리스트 테이블 -->
 					<div class="table_wrap">
-						<table summary="No., 등록일, 제목, 조회수가 표시된 공지사항 테이블입니다.">
-							<caption class="fs_00">공지사항 테이블</caption>
+						<table summary="ID, 이름, 권한, 등록일, 최근접속일이 표시된 운영자 리스트 테이블입니다.">
+							<caption class="fs_00">운영자 리스트 테이블</caption>
 							<colgroup>
-								<col width="14%">
-								<col width="19%">
-								<col width="56%">
-								<col width="11%">
+								<col width="21.4%">
+								<col width="18.2%">
+								<col width="25%">
+								<col width="22.7%">
+								<col width="12.7%">
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col" class="col1">No.</th>
-									<th scope="col" class="col2">등록일</th>
-									<th scope="col" class="col3">제목</th>
-									<th scope="col" class="col4">조회수</th>
+									<th scope="col" class="col1">ID</th>
+									<th scope="col" class="col2">이름</th>
+									<th scope="col" class="col3">권한</th>
+									<th scope="col" class="col4">등록일</th>
+									<th scope="col" class="col5">최근접속일</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td scope="row" class="col1">1</td>
-									<td class="col2">19.08.11</td>
-									<td class="col3">농구시민리그 조직위원회 소개</td>
-									<td class="col4">0</td>
+									<td scope="row" class="col1">sport00</td>
+									<td class="col2">김단장</td>
+									<td class="col3">최고관리자</td>
+									<td class="col4">19.10.01</td>
+									<td class="col5">19.10.01</td>
 								</tr>
 							</tbody>
 						</table>
@@ -101,9 +96,32 @@
 							<button type="button" class="next">다음</button>
 						</div>
 					</div>
+					<!-- 팝업 -->
+					<div class="popup">
+						<div class="popup_title">운영자 생성</div>
+						<div class="popup_inner">
+							<div class="row row01">
+								<label>ID</label>
+								<input type="text" name="">
+								<button type="button" class="btn_ok">확인</button>
+							</div>
+							<div class="row row02 select">
+								<label>권한</label>
+								<select>
+									<option selected>관리자선택</option>
+									<option>경기관리자</option>
+								</select>
+							</div>
+							<div class="row row03 btn_row">
+								<button type="button" class="btn_close">취소</button>
+								<button type="button" class="btn_save">저장</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
+		<div class="darkbg"></div>
 	</div>
 </body>
 </html>

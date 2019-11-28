@@ -28,61 +28,67 @@
 <![endif]-->
 </head>
 <body>
-	<div id="wrap">
+<div id="wrap">
 		<!-- 사이드 메뉴 -->
 		<jsp:include page="../common/menu.jsp" flush="false" />
 		<!-- 컨테이너 -->
 		<section class="container">
 			<div class="container_inner">
-				<div class="content notice">
+				<div class="content member_list">
 					<!-- 컨테이너 탑 -->
 					<header class="container_top">
-						<h2 class="cont_tit">공지사항</h2>
+						<h2 class="cont_tit">회원 리스트</h2>
 						<div class="container_top_right clearFix">
-							<!-- 분류 -->
-							<div class="select fl_l">
-								<label class="fs_00">검색 분류 입니다.</label>
-								<select>
-									<option selected="">전체</option>
-									<option>필독</option>
-								</select>
+							<!-- 엑셀 다운로드 -->
+							<div class="exel_down fl_l">
+								<button type="button">엑셀 다운로드</button>
 							</div>
 							<!-- 검색 -->
 							<div class="search fl_l">
-								<label>내용&#47;키워드 입력</label>
+								<label>ID&#47;이름&#47;연락처 입력</label>
 								<input type="text" name="" class="label_hide">
 								<button type="button">검색</button>
 							</div>
-							<!-- 생성 -->
-							<div class="register fl_l">
-								<button type="button" onclick="location.href='notice_add.html'">등록</button>
-							</div>
 						</div>
 					</header>
-					<!-- 공지사항 테이블 -->
+					<!-- 회원 리스트 테이블 -->
 					<div class="table_wrap">
-						<table summary="No., 등록일, 제목, 조회수가 표시된 공지사항 테이블입니다.">
-							<caption class="fs_00">공지사항 테이블</caption>
+						<table summary="ID 및 이름, 연락처, 성별, 출생연도, 행정동, 가입일이 표시된 회원 리스트 테이블입니다.">
+							<caption class="fs_00">회원 리스트 테이블</caption>
 							<colgroup>
+								<col width="26.8%">
+								<col width="20.8%">
+								<col width="10%">
 								<col width="14%">
-								<col width="19%">
-								<col width="56%">
-								<col width="11%">
+								<col width="13.5%">
+								<col width="14.9%">
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col" class="col1">No.</th>
-									<th scope="col" class="col2">등록일</th>
-									<th scope="col" class="col3">제목</th>
-									<th scope="col" class="col4">조회수</th>
+									<th scope="col" class="col1">ID 및 이름</th>
+									<th scope="col" class="col2">연락처</th>
+									<th scope="col" class="col3">성별</th>
+									<th scope="col" class="col4">출생연도</th>
+									<th scope="col" class="col5">행정동</th>
+									<th scope="col" class="col6">가입일</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td scope="row" class="col1">1</td>
-									<td class="col2">19.08.11</td>
-									<td class="col3">농구시민리그 조직위원회 소개</td>
-									<td class="col4">0</td>
+									<td scope="row" class="col1">
+										<div class="member_info_wrap clearFix">
+											<figure class="member_img fl_l"><img src="http://placehold.it/64x64"></figure>
+											<div class="member_info fl_l">
+												<p class="member_id">sport00</p>
+												<p class="member_name">김단장</p>
+											</div>
+										</div>
+									</td>
+									<td class="col2">010-1234-&#42;&#42;&#42;&#42;</td>
+									<td class="col3">남</td>
+									<td class="col4">1965년</td>
+									<td class="col5">지곶동</td>
+									<td class="col6">19.10.01</td>
 								</tr>
 							</tbody>
 						</table>

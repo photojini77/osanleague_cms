@@ -7,10 +7,11 @@
 		<setting name="useGeneratedKeys" value="true" />
 		<setting name="defaultExecutorType" value="REUSE" />
 	</settings>
-	<!-- 
+	
 	<typeAliases> 
-		
-	</typeAliases> -->
+			<typeAlias type="com.sweetk.osancms.common.vo.CommonVo" 		alias="CommonVo"/>
+			<typeAlias type="com.sweetk.osancms.league.vo.LeagueVo" 		alias="LeagueVo"/>
+	</typeAliases>
 	
 </configuration>
 
